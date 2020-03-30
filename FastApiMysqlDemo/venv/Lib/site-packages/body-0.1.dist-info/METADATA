@@ -1,0 +1,15 @@
+Metadata-Version: 2.0
+Name: body
+Version: 0.1
+Summary: Calculating metric height and weight
+Home-page: UNKNOWN
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3.2
+
+The package includes methods capable of tranforming pounds into kilograms and inches into centimeters
+
+
