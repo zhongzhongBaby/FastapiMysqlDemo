@@ -1,3 +1,5 @@
+from typing import List
+
 from pydantic import BaseModel, Schema, Field
 
 
@@ -9,4 +11,4 @@ class FindRequestBase(BaseModel):
 class ResponseBase(BaseModel):
     code: int = 1000
     msg: str = "请求成功"
-    date: dict = {}
+    data: dict = {}
