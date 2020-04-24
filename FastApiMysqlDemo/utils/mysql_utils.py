@@ -1,5 +1,7 @@
 import pymysql
 from DBUtils.PooledDB import PooledDB
+import config
+database = config.get_settings().database
 
 
 class MySQLHelper(object):
@@ -69,5 +71,5 @@ class MySQLHelper(object):
         conn.close()
         return res
 
-
-sql_helper = MySQLHelper("127.0.0.1", 3306, "root", "123456", "demo")
+sql_helper = MySQLHelper(database["url"], database["port"],
+                         database["user"], database["password"], database["database_name"])
