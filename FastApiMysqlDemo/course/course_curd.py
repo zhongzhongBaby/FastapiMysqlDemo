@@ -1,10 +1,10 @@
 # 课程的增删改查模块
-from fastapi import Body
+from fastapi import Body, Depends, APIRouter
 from utils.mysql_utils import sql_helper
 from common.entity import FindRequestBase
 from common.entity import ResponseBase
-from fastapi import APIRouter
 from pydantic import Field
+from auth import User, get_current_active_user
 
 course_router = APIRouter()
 
@@ -27,14 +27,15 @@ class FindCourseListRequest(FindRequestBase):
                     ''',
                     summary="查找课程列表",
                     )
-async def find_course_selective(request: FindCourseListRequest = Body(None, title="课程筛选条件")):
+async def find_course_selective(current_user: User = Depends(get_current_active_user),
+                                request: FindCourseListRequest = Body(None, title="课程筛选条件")):
     '''
     这是查找课程列表的接口，可以根据id，名称，科目去筛选
     '''
     sql_exec = find_course_selective_sql_append(request)
     result = sql_helper.fetch_all2(sql_exec)
     responseVo = ResponseBase()
-    responseVo.date = {"courses": result}
+    responseVo.data = {"courses": result}
     return responseVo
 
 
@@ -47,11 +48,11 @@ def find_course_selective_sql_append(request: FindCourseListRequest):
     sql_where = ""
     sql_limit = ""
     if request.course_id is not None and request.course_id != '':
-        sql_where += " and id = %s" % request.course_id
+        sql_where += " and id = '%s'" % request.course_id
     if request.name is not None and request.name != '':
-        sql_where += " and name = %s" % request.name
+        sql_where += " and name = '%s'" % request.name
     if request.subject is not None and request.subject != '':
-        sql_where += " and subject = %s" % request.subject
+        sql_where += " and subject = '%s'" % request.subject
     if request.limit is not None and request.page is not None:
         sql_limit += " limit %s ,  %s" % (str(request.limit * request.page), (str(request.limit)))
     sql_exec = sql_exec + sql_where + sql_limit

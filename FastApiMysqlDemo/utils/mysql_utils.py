@@ -29,6 +29,14 @@ class MySQLHelper(object):
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         return conn, cursor
 
+    def fetch_one(self, sql):
+        conn, cursor = self.create_conn_cursor()
+        cursor.execute(sql)
+        result = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        return result
+
     def fetch_all(self, sql, args):
         conn, cursor = self.create_conn_cursor()
         cursor.execute(sql, args)
