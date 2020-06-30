@@ -97,7 +97,8 @@ sql_helper = MySQLHelper("127.0.0.1", 3306, "root", "123456", "demo")
 
 
 ### 2.api文档实现效果
-![image](https://note.youdao.com/yws/api/personal/file/39E175C1C29846E5AE92B1A8D222EA95?method=download&shareKey=428a760f737abeffd2b59b357ede0c35)
+![image](1.png)
+
 
 
 
